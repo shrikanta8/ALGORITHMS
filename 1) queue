@@ -1,0 +1,34 @@
+#include <bits/stdc++.h>
+#include<stack>
+using namespace std;
+
+
+int main() {
+    int q,val,x;
+    cin>>q;
+    stack<int>a,b;
+    while(q--){     //test cases
+        cin>>val;
+        if(val==1)   //insert value
+        {
+            cin>>x;
+            b.push(x);    
+        }
+        else{
+            if(a.empty()){
+                    while(!b.empty()){
+                        a.push(b.top());
+                        b.pop();
+                    }
+                }
+                if(!a.empty()){
+                    if(val==2)    //pop element
+                        a.pop();
+                    else {          //get the front element
+                        cout<<a.top()<<endl;
+                    }
+                }
+        }
+    }   
+    return 0;
+}
