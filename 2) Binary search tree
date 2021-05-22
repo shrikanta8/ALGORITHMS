@@ -1,0 +1,32 @@
+bstit(node* root)
+    {
+        // Initializing stack
+        node* curr = root;
+        while (curr )
+            q.push(curr), curr = curr->right;
+    }
+ 
+    // Function to return
+    // current element iterator
+    // is pointing to
+    node* curr()
+    {
+        return q.top();
+    }
+ 
+    // Function to iterate to previous
+    // element of BST
+    void prev()
+    {
+        node* curr = q.top()->left;
+        q.pop();
+        while (curr)
+            q.push(curr), curr = curr->right;
+    }
+ 
+    // Function to check if
+    // stack is empty
+    bool isEnd()
+    {
+        return !(q.size());
+    }
