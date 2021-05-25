@@ -1,0 +1,33 @@
+//used Kadane’s algorithm twice, one for max and one for min 
+
+class Solution {
+public:
+    int maxAbsoluteSum(vector<int>& nums) {
+        long long sum = 0,chk=INT_MIN,fmin = INT_MAX,minSum=0;
+        for(auto i = nums.begin(); i!=nums.end(); i++){
+            sum += *i;
+            if(sum > chk)
+                chk = sum;
+            if(sum<0)
+                sum = 0;
+            
+            minSum += *i;
+            if(minSum < fmin)
+                fmin = minSum;
+            if(minSum> 0)
+                minSum = 0;
+        }
+        if(abs(fmin) > chk) 
+            return abs(fmin);
+        else
+             return chk;
+    }
+};
+
+
+//Input: nums = [2,-5,1,-4,3,-2]
+//Output: 8
+//Explanation: The subarray [-5,1,-4] has absolute sum = abs(-5+1-4) = abs(-8) = 8.
+
+
+
