@@ -1,0 +1,18 @@
+void pushZeroesEnd(int *input, int size)
+{
+    //Write your code here
+    int k=0;
+    
+    for(int j=0;j<size ;j++){
+        if(input[j]!=0){
+            swap(input[k],input[j]);
+            k++;
+        }
+    }
+}
+
+//size = 5
+//0 3 0 2 0
+//output - 
+//3 2 0 0 0
+
