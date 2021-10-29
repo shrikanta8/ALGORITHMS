@@ -1,4 +1,9 @@
 //https://practice.geeksforgeeks.org/problems/topological-sort/1
+//Coplexity
+//Time O(N + E)
+//Space O(N)
+//Auxiliary space O(N) //recursion call
+	
 
 class solution
 {
