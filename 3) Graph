@@ -1,0 +1,2 @@
+//Bipartite Graph: that can be coloured using two colours such that no two adjacent nodes hav same colour
+//if cycle is there it's length should be even
