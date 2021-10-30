@@ -1,2 +1,52 @@
-//Bipartite Graph: that can be coloured using two colours such that no two adjacent nodes hav same colour
+//Bipartite Graph: that can be coloured using two colours such that no two adjacent nodes have same colour
 //if cycle is there it's length should be even
+
+//https://leetcode.com/problems/is-graph-bipartite/submissions/
+
+//Complexity
+//Time O(n+e) 
+//Space O(n+e)+ O(n) + O(n)
+    // O(n+e) for adjacency list
+
+
+class Solution {
+public:
+    
+    bool Bipartite(vector<vector<int>>& graph,int n, int st,vector<int>& color){
+        queue<int> q;
+        q.push(st);
+        color[st]=0;
+        while(q.size()){
+            int f = q.front();
+            q.pop();
+            for(auto it: graph[f]){
+                if(color[it] == -1){
+                    // set opposite colour to adjacent node
+                    color[it] = 1 - color[f] ;
+                    q.push(it);
+                }
+                //if colour of adjacent is same then Graph is not Bipartite
+                else if (color[it] == color[f] )
+                        return false;
+            }
+        }
+        return true;
+    }
+    
+    bool check(vector<vector<int>>& graph,int n){
+        vector<int> color(n,-1);
+        for(int i=0;i<n;i++){
+        //checking for multiple components
+            if(color[i] == -1){
+                if(!Bipartite(graph,n,i,color))
+                    return false;
+            }
+        }
+        return true;
+    }
+    bool isBipartite(vector<vector<int>>& graph) {
+        int n = graph.size();
+        return check(graph,n);
+        
+    }
+};
