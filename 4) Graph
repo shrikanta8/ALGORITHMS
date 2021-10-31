@@ -1,0 +1,121 @@
+Sample Input 1 :
+4 4
+0 1 3
+0 3 5
+1 2 1
+2 3 8
+
+Sample Output 1 :
+1 2 1
+0 1 3
+0 3 5
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+template< typename T>
+class MST{
+    public:
+    T sv,ev,weight;
+    
+};
+
+bool comp(MST<int> e1, MST<int> e2){
+    return e1.weight < e2.weight;
+}
+
+// cycle detection by union find
+// O(EV)
+void Kruskal1(MST<int>* input, int v, int e, MST<int>* output){
+	vector<int> parent(v);
+    for(int i=0;i<v;i++){
+    	parent.at(i) = i;   
+    }
+    int count =0;
+    for(int i=0;i<e;i++){
+        if(count== v-1)
+            break;
+        
+    	int k1 = input[i].sv;
+    	while(k1 != parent[k1]){
+            k1 = parent[k1];
+        }
+        int k2 = input[i].ev;
+        while(k2 != parent[k2]){
+            k2 = parent[k2];
+        }
+            
+        if(k1 != k2){
+            output[count] = input[i];
+            parent[k1] = k2;
+            count++;
+        }
+    }
+}
+
+int findParent(int sv,vector<int>& parent ){
+    if(sv == parent[sv])
+        return sv;
+    return  parent[sv] = findParent(parent[sv], parent );//path compression is done
+}
+
+void unionn(int u, int v, vector<int>& parent, vector<int>& rank){
+    u = findParent(u, parent);
+    v = findParent(v, parent);
+    if(rank[u] < rank[v]){
+        parent[u] = v;
+    }
+    else if(rank[u] > rank[v]){
+        parent[v] = u;
+    }
+    else{
+        parent[v] = u;
+        rank[u]++;
+    }
+}
+
+// cycle detection by union by rank and path compression O(4)
+void Kruskal2(MST<int>* input, int v, int e, MST<int>* output){
+    vector<int> parent(v);
+    for(int i=0;i<v;i++){
+    	parent.at(i) = i;   
+    }  
+    vector<int> rank(v,0);
+    int count =0;
+    for(int i=0;i<e && count < v-1;i++){
+        
+        if( findParent(input[i].sv, parent) != findParent(input[i].ev, parent) ){
+            output[count] = input[i];
+            count++;
+            unionn(input[i].sv, input[i].ev, parent,rank);
+        }
+    }
+}
+
+//time complexity is 1) O(E log E + EV) //2) O(E log E + constant)
+//E log E for sorting
+int main() {
+    int v,e,ei,ej,wi;
+    cin >>v>>e;
+    MST<int>* input = new MST<int>[e];
+    MST<int>* output = new MST<int>[v-1];
+    
+    for(int i=0; i<e ;i++){
+        cin >>ei>>ej>>wi;
+        input[i].sv = ei;
+        input[i].ev =ej;
+        input[i].weight = wi;
+    }
+    sort(input, input + e, comp);
+    // Kruskal1(input,v,e, output);
+    Kruskal2(input,v,e, output);
+    
+    for(int i=0;i<v-1;i++){
+        if(output[i].sv > output[i].ev)
+            swap(output[i].sv, output[i].ev);
+        
+        cout << output[i].sv<<" "<< output[i].ev<<" "<< output[i].weight<<endl;
+    }
+    // Write your code here
+}
