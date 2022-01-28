@@ -1,0 +1,29 @@
+//https://www.interviewbit.com/problems/largest-rectangle-in-histogram/
+//https://www.youtube.com/watch?v=jC_cWLy7jSI
+
+int Solution::largestRectangleArea(vector<int> &A) {
+    int n=A.size(),ans=0;
+    
+    stack<int> s;
+    s.push(0);
+    int width,height;
+    for(int i=1;i<=n;i++){
+        while(s.size() && (i==n || A[s.top()] >= A[i]) ){
+            height = A[s.top()];
+            s.pop();
+            if(s.empty()){
+                width = i;
+            }
+            else{
+                width = i-s.top() -1;
+            }
+            ans = max(ans,width*height);
+        }
+        s.push(i);
+    }
+    return ans;
+}
+
+//A = [2, 1, 5, 6, 2, 3]
+//Output :
+// 10
