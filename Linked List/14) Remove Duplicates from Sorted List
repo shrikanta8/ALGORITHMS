@@ -1,0 +1,26 @@
+//https://www.interviewbit.com/problems/remove-duplicates-from-sorted-list-ii/
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+ListNode* Solution::deleteDuplicates(ListNode* A) {
+    if(!A || !A->next)
+        return A;
+    if( A->val == A->next->val){
+        while(A->next && A->val == A->next->val){
+            A=A->next;
+        }
+        return deleteDuplicates(A->next);
+    }
+    else{
+        A->next = deleteDuplicates(A->next);
+        return A;
+    }
+}
+
+//Given 1->2->3->3->4->4->5, return 1->2->5.
