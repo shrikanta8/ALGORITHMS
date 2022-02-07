@@ -1,0 +1,2 @@
+1) Get the rightmost set bit of num
+     answer = num & ~(num - 1);
