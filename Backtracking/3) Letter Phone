@@ -1,0 +1,23 @@
+// https://www.interviewbit.com/problems/letter-phone/
+
+void find(string ans, string key[], vector<string>& result,int ind, string A){
+    if(A.length() == ans.length()){
+        result.push_back(ans);
+        return;
+    }
+    string str =  key[A[ind]-'0'];
+    int len = str.length();
+    for(int i=0;i<len ;i++){
+        ans.push_back(str[i]);
+        find(ans, key, result, ind+1, A);
+        ans.pop_back();
+    }
+    return;
+}
+vector<string> Solution::letterCombinations(string A) {
+    string key[] = { "0","1", "abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+    
+    vector<string> result;
+    find("",key,result,0,A);
+    return result;
+}
