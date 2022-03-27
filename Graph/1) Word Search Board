@@ -1,0 +1,21 @@
+//https://www.interviewbit.com/problems/word-search-board/
+
+bool chk(vector<string> &A,int i, int j, string B, int curr, int r, int c){
+    
+    if(i>=r || j>=c || i<0|| j<0|| A[i][j] != B[curr])
+        return false;
+    if(B.length()-1 == curr) return true;
+    return chk(A,i+1,j,B,curr+1,r,c) || chk(A,i-1,j,B,curr+1,r,c) || chk(A,i,j+1,B,curr+1,r,c) || chk(A,i,j-1,B,curr+1,r,c);
+}
+int Solution::exist(vector<string> &A, string B) {
+    int r= A.size(),c = A[0].length(),index = -1;;
+    
+    for(int i=0;i<r;i++){
+        for(int j=0;j<A[i].length();j++){
+                if(chk(A,i,j,B,0,r,c)) 
+                    return 1;    
+        }
+    }
+    return 0;
+    
+}
