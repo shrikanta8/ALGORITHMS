@@ -1,0 +1,11 @@
+//https://www.interviewbit.com/problems/grid-unique-paths/
+
+int func(int i, int j, int x, int y){
+    if(i==x && j==y) return 1;
+    if(i>x || j>y) return 0;
+    return func(i+1, j, x, y) + func(i, j+1, x, y);
+}
+
+int Solution::uniquePaths(int x, int y) {
+    return func(1,1 , x,y);
+}
