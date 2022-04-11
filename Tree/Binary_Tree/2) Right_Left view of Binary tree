@@ -1,0 +1,24 @@
+https://www.interviewbit.com/problems/right-view-of-binary-tree///
+
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+
+void func(TreeNode* A, int l, vector<int>& v){
+    if(!A) return;
+    if(v.size() < l) v.push_back(A->val);
+
+    func(A->right,l+1,v);
+    func(A->left,l+1,v);
+}
+vector<int> Solution::solve(TreeNode* A) {
+    vector<int> v;
+    func(A,1,v);
+    return v;
+}
